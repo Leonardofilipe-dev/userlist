@@ -10,22 +10,26 @@ if($sql->rowCount() > 0){
 
 ?>
 
-<a href="adicionar.php">Adicionar novo usuario</a>
+<a href="adicionar.php">Adicionar novo usuário</a>
 
 <table border="1" width="100%">
 <tr>
 <th>ID</th>
 <th>NOME</th>
 <th>EMAIL</th>
-
+<th>AÇÕES</th>
 </tr>
 
-<?php
-foreach($lista as $user):?>
+<?php foreach($lista as $user): ?>
 <tr>
-    <td><?php echo $user['id'];?></td>
-    <td><?php echo $user['nome'];?></td>
-    <td><?php echo $user['email'];?></td>
+    <td><?= $user['id']; ?></td>
+    <td><?= $user['nome']; ?></td>
+    <td><?= $user['email']; ?></td>
+    
+    <td>
+        <a href="editar.php?id=<?= $user['id']; ?>">[ Editar ]</a>
+        <a href="deletar.php?id=<?= $user['id']; ?>">[ Deletar ]</a>
+    </td>
 </tr>
 <?php endforeach; ?>
 </table>
