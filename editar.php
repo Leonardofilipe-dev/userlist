@@ -25,13 +25,13 @@ if($id){
 ?>
 
 
-<h1>Editar Usuario</h1>
+<h1>Editar Usuário</h1>
 <form method="POST" action="editar_action.php">
-    <label>Nome:
-    <input type="text" name="name" value="<?=$info['nome'];?>" /><br><br>
-    <label>Email:
+    <input type="hidden" name="id" value="<?=$info['id'];?>"/>
+    <label>Nome:</label>
+    <input type="text" name="nome" value="<?=$info['nome'];?>" /><br><br>
+    <label>Email:</label>
     <input type="email" name="email" value="<?=$info['email'];?>" />
     <br/><br/>
     <input type="submit" value="Alterar">
-
 </form>
