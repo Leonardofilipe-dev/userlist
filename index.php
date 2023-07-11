@@ -1,13 +1,11 @@
 <?php
-require_once 'config.php';
+require_once 'database/config.php';
+require 'dao/UsuarioDaoMysql.php';
 
-$lista = [];
-$sql = $pdo->query("SELECT * FROM login");
+$usuarioDao = new UsuarioDaoMysql($pdo);
+$lista = []; // Inicializar com um array vazio
 
-if($sql->rowCount() > 0){
-    $lista = $sql->fetchAll(PDO::FETCH_ASSOC);
-}
-
+$lista = $usuarioDao->findAll();
 ?>
 
 <a href="adicionar.php">Adicionar novo usuário</a>
@@ -22,13 +20,13 @@ if($sql->rowCount() > 0){
 
 <?php foreach($lista as $user): ?>
 <tr>
-    <td><?= $user['id']; ?></td>
-    <td><?= $user['nome']; ?></td>
-    <td><?= $user['email']; ?></td>
+    <td><?= $user->getId();?></td>
+    <td><?= $user->getNome();?></td>
+    <td><?= $user->getEmail();?></td>
     
     <td>
-        <a href="editar.php?id=<?= $user['id']; ?>">[ Editar ]</a>
-        <a href="deletar.php?id=<?= $user['id']; ?>">[ Deletar ]</a>
+        <a href="editar.php?id=<?= $user->getId(); ?>">[ Editar ]</a>
+        <a href="deletar.php?id=<?= $user->getId(); ?>">[ Deletar ]</a>
     </td>
 </tr>
 <?php endforeach; ?>
