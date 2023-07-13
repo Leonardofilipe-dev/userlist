@@ -1,37 +1,35 @@
 <?php
-require_once './database/config.php';
+require 'config.php';
+require 'dao/UsuarioDaoMysql.php';
 
-$info = [];
+$usuarioDao = new UsuarioDaoMysql($pdo);
+
+$usuario = false;
 
 $id = filter_input(INPUT_GET, 'id');
-if($id){
-    $sql = $pdo->prepare("SELECT * FROM login WHERE id = :id");
-    $sql->bindValue(':id', $id);
-    $sql->execute();
+if($id) {
+    $usuario = $usuarioDao->findById($id);
+}
 
-    if($sql->rowCount()>0){
-        $info = $sql->fetch(PDO::FETCH_ASSOC);
-
-    } else{
-        header("Location: index.php");
-        exit;
-    }
-
-
-}else{
+if($usuario === false) {
     header("Location: index.php");
     exit;
 }
 ?>
-
-
 <h1>Editar Usuário</h1>
+
 <form method="POST" action="editar_action.php">
-    <input type="hidden" name="id" value="<?=$info['id'];?>"/>
-    <label>Nome:</label>
-    <input type="text" name="nome" value="<?=$info['nome'];?>" /><br><br>
-    <label>Email:</label>
-    <input type="email" name="email" value="<?=$info['email'];?>" />
-    <br/><br/>
-    <input type="submit" value="Alterar">
+    <input type="hidden" name="id" value="<?=$usuario->getId();?>" />
+
+    <label>
+        Nome:<br/>
+        <input type="text" name="name" value="<?=$usuario->getNome();?>" />
+    </label><br/><br/>
+
+    <label>
+        E-mail:<br/>
+        <input type="email" name="email" value="<?=$usuario->getEmail();?>" />
+    </label><br/><br/>
+
+    <input type="submit" value="Salvar" />
 </form>

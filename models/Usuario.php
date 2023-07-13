@@ -1,14 +1,12 @@
 <?php
-
 class Usuario {
     private $id;
     private $nome;
     private $email;
-  
+
     public function getId() {
         return $this->id;
     }
-    
     public function setId($i) {
         $this->id = trim($i);
     }
@@ -16,7 +14,6 @@ class Usuario {
     public function getNome() {
         return $this->nome;
     }
-
     public function setNome($n) {
         $this->nome = ucwords(trim($n));
     }
@@ -24,16 +21,16 @@ class Usuario {
     public function getEmail() {
         return $this->email;
     }
-
     public function setEmail($e) {
         $this->email = strtolower(trim($e));
     }
 }
 
-interface UsuarioDao {
+interface UsuarioDAO {
     public function add(Usuario $u);
     public function findAll();
+    public function findByEmail($email);
     public function findById($id);
     public function update(Usuario $u);
-    public function delete(Usuario $id);
+    public function delete($id);
 }
